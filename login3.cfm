@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<cfif StructKeyExists(session, "isLoggedIn") EQ false>
+    no session created
+    <cfabort>
+</cfif>
+
 <head>
     <!-- Standard Meta -->
     <meta charset="utf-8"/>
