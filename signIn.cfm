@@ -7,7 +7,7 @@ test1
 	<cfset password = form.password>
 	submitted form
 	<cfquery datasource="MainDB" name="qLogin">
-		Select Username, FirstName, LastName, FirstSemester, FirstYear, Major
+		Select PK_Student, Username, FirstName, LastName, FirstSemester, FirstYear, Major
 		From Student
 		Where Username = '#username#' AND Password = '#password#'
 	</cfquery>
@@ -15,6 +15,7 @@ test1
 	<cfif qLogin.recordCount gt 0>
 		found user
 		<cfset session.isLoggedIn = true>
+		<cfset session.studentID = qLogin.PK_Student>
 		<cfset session.Username = qLogin.username>
 		<cfset session.FirstName = qLogin.FirstName>
 		<cfset session.LastName = qLogin.LastName>

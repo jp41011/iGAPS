@@ -37,10 +37,10 @@
 
     	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     		<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-        		<li><a href="#">Dashboard</a></li>
-        		<li><a href="#">Progress</a></li>
-        		<li><a href="#">Project</a></li>
+				<li class="active"><a href="Home1.cfm">Home</a></li>
+        		<li><a href="Dashboard.cfm">Dashboard</a></li>
+        		<li><a href="Progress.cfm">Progress</a></li>
+        		<li><a href="Plan.cfm">Plan</a></li>
         		<li><a href="logout.cfm"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
     		</ul>
     	</div>
@@ -57,7 +57,7 @@
 	                <div class="row">
 	                    <div class="profile">
 	                        <div class="avatar">
-	                            <img src="../assets/img/christian.jpg" alt="Circle Image" class="img-circle img-responsive img-raised">
+	                            <img src="../assets/img/default_img.png" alt="Circle Image" class="img-circle img-responsive img-raised">
 	                        </div>
 	                        <div class="name">
 	                            <h3 class="title">
