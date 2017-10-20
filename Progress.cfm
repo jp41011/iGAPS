@@ -89,6 +89,7 @@
 			<!--Div that will hold the pie chart-->
     		 <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
          
+         <!--- Round() example --->
         <cfoutput>
           <cfset var pi = 3.1415926535 />
           <cfset var pi_rounded = Round(pi, 2) />
