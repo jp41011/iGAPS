@@ -59,7 +59,36 @@
 	<div class="main">
 		<div class="container">
 			<!-- here you can add your content -->
-			Home page
+			Plan Page
+			<br/>
+			<!---
+			<cfobject name="node0" component="CourseNode" />
+			<cfdump var = #node0# />
+			--->
+			
+			<cfset node1 = createObject('component', 'CourseNode') />
+			
+			<!--- <cfset pVar = node1.NodeID /> --->
+			<cfset pVar = node1.getNodeID() />
+			<!--- <cfset nVar = node1.setNodeID(969) />
+			<cfset nVar = node1.getNodeID() /> --->
+			<cfset publicVar = node1.NodeNum />
+			<cfset publicVar2 = node1.setNodeNum(123) />
+			<cfset publicVar2 = node1.NodeNum />
+			<cfset fReturn = node1.getCourseName() />
+			<cfoutput>
+				pVar: #pVar#
+				<br/>
+				<!--- nVar: #nVar# --->
+				<br/>
+				publicVar: #publicVar#
+				<br/>
+				publicVar2: #publicVar2#
+				<br/>
+				fReturn: #fReturn#
+			</cfoutput>
+			<cfdump var=#node1# />
+			<br/>123
 		</div>
 	</div>
 </div>

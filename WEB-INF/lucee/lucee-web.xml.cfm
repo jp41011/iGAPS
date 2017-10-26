@@ -142,7 +142,7 @@ Path placeholders:
 	<!--
 		enable and disable debugging
 	 -->
-	<debugging template="/lucee/templates/debugging/debugging.cfm"/>
+	<debugging database="false" debug="true" dump="true" exception="true" implicit-access="false" query-usage="false" template="" timer="false" tracing="false"/>
 		
 	<application cache-directory="{lucee-web}/cache/" cache-directory-max-size="100mb"/>
 		

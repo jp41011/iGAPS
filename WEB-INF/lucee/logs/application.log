@@ -1162,3 +1162,99 @@ Unknown column 'testingUser' in 'where clause';lucee.runtime.exp.DatabaseExcepti
 "ERROR","http-nio-8888-exec-9","10/24/2017","03:03:46","",";"
 "ERROR","http-nio-8888-exec-4","10/24/2017","03:08:18","",";"
 "ERROR","http-nio-8888-exec-6","10/24/2017","03:08:24","",";"
+"ERROR","http-nio-8888-exec-9","10/25/2017","04:52:31","",";"
+"ERROR","http-nio-8888-exec-10","10/25/2017","04:55:54","",";"
+"ERROR","http-nio-8888-exec-8","10/25/2017","05:04:57","",";"
+"ERROR","http-nio-8888-exec-2","10/25/2017","05:05:01","",";"
+"ERROR","http-nio-8888-exec-7","10/25/2017","05:05:09","",";"
+"ERROR","http-nio-8888-exec-1","10/25/2017","05:09:11","",";"
+"ERROR","http-nio-8888-exec-2","10/25/2017","05:25:29","",";"
+"ERROR","http-nio-8888-exec-7","10/25/2017","05:25:33","",";"
+"ERROR","http-nio-8888-exec-5","10/25/2017","05:25:38","",";"
+"ERROR","http-nio-8888-exec-5","10/25/2017","05:26:51","",";"
+"ERROR","http-nio-8888-exec-9","10/25/2017","05:27:30","",";"
+"ERROR","http-nio-8888-exec-2","10/25/2017","05:33:06","",";"
+"ERROR","http-nio-8888-exec-6","10/25/2017","05:33:19","",";"
+"ERROR","http-nio-8888-exec-9","10/25/2017","05:33:31","",";directory [zip:///var/www/html/WEB-INF/lucee/context/lucee-context.lar!/admin] doesn't exist;lucee.runtime.exp.ApplicationException: directory [zip:///var/www/html/WEB-INF/lucee/context/lucee-context.lar!/admin] doesn't exist
+	at lucee.runtime.tag.Directory.actionList(Directory.java:433)
+	at lucee.runtime.tag.Directory.doStartTag(Directory.java:368)
+	at admin_search_index_cfm874$cf.call(/admin/admin.search.index.cfm:37)
+	at lucee.runtime.PageContextImpl._doInclude(PageContextImpl.java:939)
+	at lucee.runtime.PageContextImpl._doInclude(PageContextImpl.java:833)
+	at lucee.runtime.PageContextImpl.doInclude(PageContextImpl.java:817)
+	at admin_search_cfm276$cf.call(/admin/admin.search.cfm:39)
+	at lucee.runtime.PageContextImpl._doInclude(PageContextImpl.java:939)
+	at lucee.runtime.PageContextImpl._doInclude(PageContextImpl.java:833)
+	at lucee.runtime.PageContextImpl.doInclude(PageContextImpl.java:817)
+	at web_cfm$cf.call(/admin/web.cfm:392)
+	at lucee.runtime.PageContextImpl._doInclude(PageContextImpl.java:939)
+	at lucee.runtime.PageContextImpl._doInclude(PageContextImpl.java:833)
+	at lucee.runtime.PageContextImpl.doInclude(PageContextImpl.java:817)
+	at server_cfm$cf.call(/admin/server.cfm:2)
+	at lucee.runtime.PageContextImpl._doInclude(PageContextImpl.java:939)
+	at lucee.runtime.PageContextImpl._doInclude(PageContextImpl.java:833)
+	at lucee.runtime.listener.ModernAppListener._onRequest(ModernAppListener.java:224)
+	at lucee.runtime.listener.MixedAppListener.onRequest(MixedAppListener.java:43)
+	at lucee.runtime.PageContextImpl.execute(PageContextImpl.java:2405)
+	at lucee.runtime.PageContextImpl._execute(PageContextImpl.java:2395)
+	at lucee.runtime.PageContextImpl.executeCFML(PageContextImpl.java:2363)
+	at lucee.runtime.engine.Request.exe(Request.java:46)
+	at lucee.runtime.engine.CFMLEngineImpl._service(CFMLEngineImpl.java:1048)
+	at lucee.runtime.engine.CFMLEngineImpl.serviceCFML(CFMLEngineImpl.java:996)
+	at lucee.loader.engine.CFMLEngineWrapper.serviceCFML(CFMLEngineWrapper.java:102)
+	at lucee.loader.servlet.CFMLServlet.service(CFMLServlet.java:51)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:478)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:80)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:799)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1455)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+"
+"ERROR","http-nio-8888-exec-10","10/25/2017","05:33:44","",";"
+"ERROR","http-nio-8888-exec-3","10/25/2017","05:33:54","",";"
+"ERROR","http-nio-8888-exec-4","10/25/2017","05:33:56","",";"
+"ERROR","http-nio-8888-exec-2","10/25/2017","05:34:25","",";"
+"ERROR","http-nio-8888-exec-3","10/25/2017","05:35:12","",";"
+"ERROR","http-nio-8888-exec-5","10/25/2017","05:35:15","",";"
+"ERROR","http-nio-8888-exec-8","10/25/2017","05:36:23","",";"
+"ERROR","http-nio-8888-exec-7","10/25/2017","05:36:32","",";"
+"ERROR","http-nio-8888-exec-2","10/25/2017","05:38:03","",";"
+"ERROR","http-nio-8888-exec-7","10/25/2017","05:38:21","",";"
+"ERROR","http-nio-8888-exec-10","10/25/2017","05:38:47","",";"
+"ERROR","http-nio-8888-exec-6","10/25/2017","05:38:51","",";"
+"ERROR","http-nio-8888-exec-9","10/25/2017","05:38:54","",";"
+"ERROR","http-nio-8888-exec-4","10/25/2017","05:38:58","",";"
+"ERROR","http-nio-8888-exec-6","10/25/2017","05:39:07","",";"
+"ERROR","http-nio-8888-exec-3","10/25/2017","05:39:10","",";"
+"ERROR","http-nio-8888-exec-10","10/25/2017","05:39:15","",";"
+"ERROR","http-nio-8888-exec-7","10/25/2017","05:39:21","",";"
+"ERROR","http-nio-8888-exec-1","10/25/2017","05:39:29","",";"
+"ERROR","http-nio-8888-exec-8","10/25/2017","05:39:34","",";"
+"ERROR","http-nio-8888-exec-2","10/25/2017","05:39:39","",";"
+"ERROR","http-nio-8888-exec-7","10/25/2017","05:39:41","",";"
+"ERROR","http-nio-8888-exec-1","10/25/2017","05:39:42","",";"
+"ERROR","http-nio-8888-exec-5","10/25/2017","05:39:44","",";"
+"ERROR","http-nio-8888-exec-2","10/25/2017","05:41:18","",";"
+"ERROR","http-nio-8888-exec-1","10/25/2017","05:41:22","",";"
+"ERROR","http-nio-8888-exec-3","10/25/2017","05:41:32","",";"
+"ERROR","http-nio-8888-exec-1","10/25/2017","05:41:39","",";"
+"ERROR","http-nio-8888-exec-8","10/25/2017","05:42:01","",";"
+"ERROR","http-nio-8888-exec-5","10/25/2017","05:42:37","",";"
+"ERROR","http-nio-8888-exec-8","10/25/2017","05:42:43","",";"
+"ERROR","http-nio-8888-exec-6","10/25/2017","05:42:51","",";"
