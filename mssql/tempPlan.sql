@@ -6,7 +6,8 @@ Use MainDB;
 
 Set @nextSemester = 'Spring', @nextYear = 2019, @studentID=4, @firstSemester='Fall', @firstYear=2018;
 
-Select cd.*, cg.isRequired, cg.isElective
+-- Select cd.*, cg.isRequired, cg.isElective
+Select cd.PK_CourseData, cd.Semester, cd.Year, cd.Department, cd.CourseNumber, cd.Professor_PK, cd.Frequency, cd.PassRate, cg.isRequired, cg.isElective
 From MainDB.Course c
 	Left Join MainDB.CourseData cd ON (cd.Semester = c.Semester AND cd.Year = c.Year AND cd.Department=c.Department AND cd.CourseNumber=c.CourseNumber AND cd.Professor_PK=c.Professor_PK)
 	Left Join MainDB.Catalog cg ON (cg.Semester=@firstSemester AND cg.Year=@firstYear AND cg.Department=c.Department AND cg.CourseNumber=c.CourseNumber)
