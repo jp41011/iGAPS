@@ -83,3 +83,47 @@
 	<cfset var gpa = Round(curSum / curCount, 2) />
 	<cfreturn gpa />
 </cffunction>
+
+
+
+<!--- Gen Course Map --->
+
+<cffunction name="genCourseMap" output="true" returntype="any">
+
+<cfquery name='qNextSemester' datasource="MainDB">
+	Select Semester, Year
+	From MainDB.Semester
+	Where isNext = 1;
+</cfquery>
+
+
+<cfquery name='qCourseOptions' datasource="MainDB">
+<!---
+Set @nextSemester = '#qNextSemester.Semester#', @nextYear = #qNextSemester.Year#, @studentID = #Session.studentID#, @firstSemester = '#Session.firstSemester#', @firstYear=#Session.firstYear#;
+
+-- Select cd.*, cg.isRequired, cg.isElective
+--->
+Select cd.PK_CourseData, cd.Semester, cd.Year, cd.Department, cd.CourseNumber, cd.Professor_PK, cd.Frequency, cd.PassRate, cg.isRequired, cg.isElective
+From MainDB.Course c
+	Left Join MainDB.CourseData cd ON (cd.Semester = c.Semester AND cd.Year = c.Year AND cd.Department=c.Department AND cd.CourseNumber=c.CourseNumber AND cd.Professor_PK=c.Professor_PK)
+	Left Join MainDB.Catalog cg ON (cg.Semester='#Session.firstSemester#' AND cg.Year='#Session.firstYear#' AND cg.Department=c.Department AND cg.CourseNumber=c.CourseNumber)
+Where c.Semester = '#qNextSemester.Semester#'
+	AND c.Year = '#qNextSemester.Year#' 
+    AND (Left(c.CourseNumber, 1) = '2' 
+		OR (c.Department = 'CSci' 
+			AND c.CourseNumber='174') 
+        )
+	AND c.Department + '_' + c.CourseNumber NOT IN (Select c2.Department+'_'+c2.CourseNumber
+													From MainDB.CourseEnrollment ce
+														Join MainDB.Course c2 ON (c2.PK_Course = ce.Course_PK)
+													Where ce.Student_PK = #Session.studentID# 
+													AND Left(Grade,1) IN ('A', 'B', 'C')
+													)
+;
+</cfquery>
+
+
+<!--- <cfdump var='#qCourseOptions#' /> --->
+<cfreturn qCourseOptions />
+</cffunction>
+

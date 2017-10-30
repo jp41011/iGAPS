@@ -1,7 +1,101 @@
 <!doctype html>
 <html lang="en">
 
+<cfset insertFlag = (isDefined("url.gen") ? (url.gen eq 1 ? true : false) : false) />
+<!--- <cfset insertFlag = (insertFlag eq 1 ? insertFlag : false) /> --->
+
+<cfdump var = '#insertFlag#' />
+
 <cfinclude template="functions.cfm" />
+
+<!--- get query with all the list of possible coureses for next semster --->
+<cfset qCourseOptions = genCourseMap() />
+<cfset arrayCourses=ArrayNew(1) /> <!--- array to store course info --->
+
+<cfloop query="qCourseOptions">
+	<cfset var node = createObject('component', 'CourseNode') />
+
+	<cfset var t = node.setPK_CourseData(#PK_CourseData#) />
+	<cfset var t = node.setSemester(#Semester#) />
+	<cfset var t = node.setYear(#Year#) />
+	<cfset var t = node.setDepartment(#Department#) />
+	<cfset var t = node.setCourseNumber(#CourseNumber#) />
+	<cfset var t = node.setProfessor_PK(#Professor_PK#) />
+	<cfset var t = node.setFrequency(#Frequency#) />
+	<cfset var t = node.setPassRate(#PassRate#) />
+	<cfset var t = node.setisRequired(#isRequired#) />
+	<cfset var t = node.setisElective(#isElective#) />
+
+	<cfset var tt = ArrayAppend(arrayCourses, #node#) />
+</cfloop>
+
+<!--- <cfdump var = "#qCourseOptions#" /> --->
+<!--- <cfdump var = "#arrayCourses#" /> --->
+
+<cfset maxCourseCount = 3 />
+
+<cfquery name='qGetGroupRunPK' datasource="MainDB">
+	Select Max(GroupRun_PK) AS MaxGroupRunPK From MainDB.CourseGroup;
+</cfquery>
+
+<cfquery name='qGetGroupPK' datasource="MainDB">
+	Select Max(Group_PK) AS MaxGroupPK From MainDB.CourseGroup;
+</cfquery>
+
+<cfset GroupRun_PK = qGetGroupRunPK.MaxGroupRunPK + 1 />
+<!--- <cfset Group_PK = qGetGroupPK.MaxGroupPK + 1 /> --->
+<cfset Group_PK = 0 />
+
+<!--- <cfdump var = '#Group_PK#' /> --->
+
+<!--- get and set the group PK --->
+
+<!--- testing ---
+<cfoutput>
+	array[1] = #arrayCourses[1].getCourseNumber()#
+	<br/>
+	arrayLen = #ArrayLen(arrayCourses)#
+	<br/>
+</cfoutput>
+--->
+
+<cfset groupingCount = 0 />
+
+<!--- loop through courses and generate all groups of 3 --->
+<cfloop index = "firstClass" from = "1" to = "#ArrayLen(arrayCourses) - maxCourseCount + 1#"> 
+	<cfloop index="secondClass" from = "#firstClass+1#" to ="#ArrayLen(arrayCourses) - maxCourseCount + 2#">
+		<cfloop index="thirdClass" from = "#secondClass+1#" to ="#ArrayLen(arrayCourses) - maxCourseCount + 3#">
+			<cfset groupingCount = groupingCount+1 />
+			<cfoutput>
+				<!--- Group #groupingCount#: #firstClass#, #secondClass#, #thirdClass# --->
+				
+				<cfset Group_PK = Group_PK + 1/> <!--- increase group index --->
+				<!---
+				(#GroupRun_PK#) Group #Group_Pk#: #arrayCourses[firstClass].getPK_CourseData()#, #arrayCourses[secondClass].getPK_CourseData()#, #arrayCourses[thirdClass].getPK_CourseData()#
+				<br/>
+				--->
+
+				<cfif insertFlag eq true>
+					<!--- insert this grouping to the table --->
+					<cfquery name="qInsertGrouping" datasource="MainDB">
+						Insert Into MainDB.CourseGroup (GroupRun_PK, Group_PK, Student_PK, CourseData_PK)
+						Values 
+						(#GroupRun_PK#, #Group_PK#, #Session.studentID#, #arrayCourses[firstClass].getPK_CourseData()#)
+						,(#GroupRun_PK#, #Group_PK#, #Session.studentID#, #arrayCourses[secondClass].getPK_CourseData()#)
+						,(#GroupRun_PK#, #Group_PK#, #Session.studentID#, #arrayCourses[thirdClass].getPK_CourseData()#)
+					</cfquery>
+					<!--- 
+					<br/>
+					Added to DB
+					 --->
+				</cfif>
+			</cfoutput>
+
+		</cfloop>
+	</cfloop>
+</cfloop>
+
+
 
 <head>
 	<meta charset="utf-8" />
@@ -52,9 +146,7 @@
 <!-- end navbar -->
 
 <div class="wrapper">
-	<div class="header">
-
-	</div>
+	<!--- <div class="header"> Header </div> --->
 	<!-- you can use the class main-raised if you want the main area to be as a page with shadows -->
 	<div class="main">
 		<div class="container">
@@ -65,9 +157,8 @@
 			<cfobject name="node0" component="CourseNode" />
 			<cfdump var = #node0# />
 			--->
-			
+			<!---
 			<cfset node1 = createObject('component', 'CourseNode') />
-			
 			<!--- <cfset pVar = node1.NodeID /> --->
 			<cfset pVar = node1.getNodeID() />
 			<!--- <cfset nVar = node1.setNodeID(969) />
@@ -89,6 +180,13 @@
 			</cfoutput>
 			<cfdump var=#node1# />
 			<br/>123
+			--->
+			<hr/>
+
+			<!--- <cfset tempVar = genCourseMap() /> --->
+			<cfdump var='#tempVar#' />
+
+
 		</div>
 	</div>
 </div>
