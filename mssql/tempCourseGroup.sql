@@ -36,10 +36,29 @@ Where cg.GroupRun_PK = 2
 
 ----------------------- 
 
-
+/*
 -- courses that have the highest rating
 Select cg.*, cd.*
 From MainDB.CourseGroup cg
 	Join MainDB.CourseData cd ON (cd.PK_CourseData = cg.CourseData_PK)
 Where cg.GroupRun_PK = 2
 Order by cg.RatingGroup desc, cg.Group_PK asc;
+*/
+
+-- get the top 3 suggested course groupings from the latest run for this student
+-- Select cg.*, cd.*
+Select cg.GroupRun_PK, cg.Group_PK, cg.Student_PK, cg.CourseData_PK, cg.Rating1, cg.RatingGroup, cd.Semester, cd.Year, cd.Department, cd.CourseNumber, cd.Professor_PK, cd.Frequency, cd.PassRate
+From MainDB.CourseGroup cg
+	Join MainDB.CourseData cd ON (cd.PK_CourseData = cg.CourseData_PK)
+Where cg.Student_PK = 4 AND cg.GroupRun_PK = 2
+Order by cg.RatingGroup desc, cg.Group_PK asc
+Limit 9
+;
+
+
+
+-- get the last group run pk for this student pk
+Select Max(GroupRun_PK) as MaxGroupRunPK
+From MainDB.CourseGroup cg
+Where cg.Student_PK = 4
+;

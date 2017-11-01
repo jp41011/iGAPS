@@ -97,6 +97,63 @@
 
 
 
+<cfif insertFlag eq true>
+	<!--- Upate the course rating --->
+	<cfquery name='qUpdateRating1' datasource="MainDB">
+		-- Rating for each solo course
+		Update MainDB.CourseGroup cg
+			Join MainDB.CourseData cd ON (cd.PK_CourseData = cg.CourseData_PK)
+		    Left Join MainDB.Catalog ct ON (ct.Semester='#Session.FirstSemester#' AND ct.Year=#Session.FirstYear# AND ct.Department=cd.Department AND ct.CourseNumber=cd.CourseNumber)
+		Set cg.Rating1 = cd.PassRate + (1 - cd.Frequency) + (0.5 * IF(ct.isRequired IS NULL, 0, 1)) + (0.1 * IF(ct.isElective IS NULL, 0, 1))
+		Where cg.GroupRun_PK = #GroupRun_PK#
+		;
+	</cfquery>
+
+	<!--- update the grouping rating --->
+	<cfquery name='qUpdateRatingGroup' datasource="MainDB">
+		-- update rating for the grouping
+		Update MainDB.CourseGroup cg
+			Join (Select cg2.GroupRun_PK, cg2.Group_PK, cg2.Student_PK, count(*) AS Count, Sum(cg2.Rating1) AS RatingSum
+					From MainDB.CourseGroup cg2
+		            Where cg2.GroupRun_PK = #GroupRun_PK#
+		            Group By cg2.GroupRun_PK, cg2.Group_PK, cg2.Student_PK
+		            ) groupSums ON (groupSums.GroupRun_PK = cg.GroupRun_PK AND groupSums.Group_PK = cg.Group_PK AND groupSums.Student_PK = cg.Student_PK)
+		    
+		Set cg.RatingGroup = groupSums.RatingSum
+		Where cg.GroupRun_PK = #GroupRun_PK#
+		;
+	</cfquery>
+
+</cfif>
+
+
+<!--- if did not insert on this page load then query the latest (max) GroupRunPK for this student --->
+<cfif insertFlag eq false> 
+	<cfquery name='qLastGroupRun' datasource="MainDB">
+		Select Max(GroupRun_PK) as MaxGroupRunPK
+		From MainDB.CourseGroup cg
+		Where cg.Student_PK = #session.studentID#
+		;
+	</cfquery>
+
+	<cfset GroupRun_PK = qLastGroupRun.MaxGroupRunPK />
+</cfif>
+
+<!--- select the top 3 groupings to display --->
+<cfquery name='qTopGroups' datasource="MainDB">
+	-- get the top 3 suggested course groupings from the latest run for this student
+	-- Select cg.*, cd.*
+	Select cg.GroupRun_PK, cg.Group_PK, cg.Student_PK, cg.CourseData_PK, cg.Rating1, cg.RatingGroup, cd.Semester, cd.Year, cd.Department, cd.CourseNumber, cd.Professor_PK, cd.Frequency, cd.PassRate
+	From MainDB.CourseGroup cg
+		Join MainDB.CourseData cd ON (cd.PK_CourseData = cg.CourseData_PK)
+	Where cg.Student_PK = #session.studentID# AND cg.GroupRun_PK = #GroupRun_PK#
+	Order by cg.RatingGroup desc, cg.Group_PK asc
+	Limit 9
+	;
+</cfquery>
+
+<cfdump var="#qTopGroups#" />
+
 <head>
 	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
