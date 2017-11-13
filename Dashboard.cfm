@@ -102,6 +102,7 @@
         		<li class="active"><a href="Dashboard.cfm">Dashboard</a></li>
         		<li><a href="Progress.cfm">Progress</a></li>
         		<li><a href="Plan.cfm">Plan</a></li>
+        		<li><a href="viewForcast.cfm">Forcast</a></li>
         		<li><a href="logout.cfm"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
     		</ul>
     	</div>

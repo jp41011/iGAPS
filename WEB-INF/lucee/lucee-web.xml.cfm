@@ -142,7 +142,7 @@ Path placeholders:
 	<!--
 		enable and disable debugging
 	 -->
-	<debugging database="false" debug="true" dump="true" exception="true" implicit-access="false" query-usage="false" template="" timer="false" tracing="false"/>
+	<debugging database="false" debug="true" dump="true" exception="true" implicit-access="false" query-usage="false" template="" timer="false" tracing="false"><debug-entry custom="general=Enabled&amp;timeFormat=standard&amp;highlight=250000&amp;scopes=Enabled&amp;minimal=0" fullname="lucee-server.admin.debug.Modern" id="fb90e7bc8c3b8d27c2eb232da905cc8a" iprange="*" label="ModernTemplate" path="/lucee-server/admin/debug/Modern.cfc" type="lucee-modern"/></debugging>
 		
 	<application cache-directory="{lucee-web}/cache/" cache-directory-max-size="100mb"/>
 		
@@ -206,4 +206,4 @@ for every argument defined lucee tries to call a matching setter method
 		<logger appender="resource" appender-arguments="path:{lucee-config}/logs/application.log" layout="classic" level="info" name="application"/>
 		<logger appender="resource" appender-arguments="path:{lucee-config}/logs/exception.log" layout="classic" level="info" name="exception"/>	
 	</logging>		
-<datasource/><rest/><gateways/><orm/><search/></cfLuceeConfiguration>
+<datasource/><rest/><gateways/><orm/><search/><error status-code="true" template-404="/lucee/templates/error/error-public.cfm" template-500="/lucee/templates/error/error-public.cfm"/></cfLuceeConfiguration>
