@@ -138,7 +138,7 @@ Should make all of this a function
 	<cfset Group_PK = 0 />
 
 	<cfset groupingCount = 0 />
-	<cfset insertFlag = true />
+	<cfset insertFlag = false />
 
 	<!--- loop through courses and generate all groups of 3 --->
 	<cfloop index = "firstClass" from = "1" to = "#ArrayLen(arrayCourses) - maxCourseCount + 1#"> 

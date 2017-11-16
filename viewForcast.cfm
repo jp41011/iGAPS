@@ -4,6 +4,17 @@
 <cfinclude template="functions.cfm" />
 <cfinclude template="CourseForcast.cfm" />
 
+<cfquery name="qForcast" datasource="MainDB">
+	Select c.Semester, c.Year, c.Department, c.CourseNumber, c.CourseName, cf.Grade, c.Units
+	From MainDB.CourseForcast cf
+		Join MainDB.Course c ON (c.PK_Course = cf.Course_PK)
+	    Join MainDB.Semester s ON (s.Semester = c.Semester AND s.Year = c.Year)
+	Where cf.Student_PK = #Session.StudentID#
+	Order By s.SortOrder ASC
+	;
+</cfquery>
+
+
 <head>
 	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
@@ -22,6 +33,43 @@
 	<!-- CSS Files -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/material-kit.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
+
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', '' )
+        data.addColumn('string', 'Semester');
+		data.addColumn('string', 'Year');
+		data.addColumn('string', 'Department');
+		data.addColumn('string', 'Course Number');
+		data.addColumn('string', 'Course Name');
+		data.addColumn('string', 'Grade');
+		data.addColumn('string', 'Unit(s)');
+		data.addRows([
+			<cfloop query="qForcast">
+			<cfoutput>
+				[#currentRow#,
+				'#Semester#', 
+				'#Year#', 
+				'#Department#', 
+				'#CourseNumber#', 
+				'#CourseName#', 
+				'#Grade#', 
+				'#Units#' 
+				],
+			</cfoutput>
+			</cfloop>
+		])
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: false, width: '100%', height: '100%'});
+      }
+    </script>
+
 </head>
 
 <body>
@@ -36,7 +84,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
     		</button>
-    		<a class="navbar-brand" href="#"></a>
+    		<a class="navbar-brand" href="#">iGAPS Forcast</a>
     	</div>
 
     	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -66,6 +114,8 @@
 				<!-- here you can add your content -->
 				View Forcast page
 
+				<div id="table_div"></div>
+
 				<cfset var t = GenerateCourseForcast(session.studentID) />
 				<cfset totalNeeded = getTotalUnitsNeeded(session.studentID) />
 				<cfset requiredNeeded = getRequiredUnitsNeeded(session.studentID) />
@@ -77,6 +127,7 @@
 				Required units needed: #requiredNeeded#
 				<br/>
 				Elective units needed: #electiveNeeded#
+
 			</cfoutput>
 		</div>
 	</div>
